@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  padding: 10px;
+}
+
+#card-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.market {
+  border-top: 1px solid #ddd;
+  padding: 6px 0;
+}
