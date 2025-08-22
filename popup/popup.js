@@ -1,39 +1,53 @@
-const cardImage = document.getElementById("card-image");
-const cardInfo = document.getElementById("card-info");
-const marketResults = document.getElementById("market-results");
+const cardImage = document.getElementById('card-image');
+const cardInfo = document.getElementById('card-info');
+const marketResults = document.getElementById('market-results');
 
 async function init() {
-  const { imageUrl } = await chrome.storage.local.get("imageUrl");
+  const { imageUrl, status, data, error } = await chrome.storage.local.get([
+    'imageUrl',
+    'status',
+    'data',
+    'error'
+  ]);
+
   if (!imageUrl) {
-    cardInfo.textContent = "No image selected.";
+    cardInfo.textContent = 'Right-click a card image to start.';
     return;
   }
 
   cardImage.src = imageUrl;
 
-  // FAKE card data
-  const fakeCard = {
-    name: "2020 Topps Chrome Shohei Ohtani #123",
-    variant: "Refractor",
-    prices: [
-      { market: "eBay", low: "$14.50", median: "$17.00", url: "https://ebay.com" },
-      { market: "COMC", low: "$15.00", median: "$18.25", url: "https://comc.com" },
-      { market: "TCGPlayer", low: "$13.75", median: "$16.50", url: "https://tcgplayer.com" }
-    ]
-  };
+  if (status === 'loading') {
+    cardInfo.textContent = 'Looking up card…';
+    return;
+  }
+
+  if (status === 'error') {
+    cardInfo.textContent = `Error: ${error}`;
+    return;
+  }
+
+  // Get the 'Card' object
+  const cardObj = data.records?.[0]?._objects?.find(obj => obj.name === "Card");
+  const match = cardObj?._identification?.best_match;
+  const priceList = match?.pricing?.list || [];
 
   cardInfo.innerHTML = `
-    <strong>${fakeCard.name}</strong><br />
-    <em>${fakeCard.variant}</em>
+    <strong>${match?.full_name || 'Unknown Card'}</strong><br/>
+    <em>${match?.set || ''} · ${match?.year || ''}</em>
   `;
 
-  marketResults.innerHTML = fakeCard.prices.map(p =>
-    `<div class="market">
-      <strong>${p.market}</strong><br />
-      Low: ${p.low} · Median: ${p.median}<br />
-      <a href="${p.url}" target="_blank">View</a>
-    </div>`
-  ).join('');
+  marketResults.innerHTML = priceList.length
+    ? priceList
+        .map(p => `
+          <div class="market">
+            <strong>${p.source}</strong><br/>
+            Price: ${p.price} ${p.currency}<br/>
+            <a href="${p.item_link}" target="_blank">View</a>
+          </div>
+        `)
+        .join('')
+    : '<p>No prices found.</p>';
 }
 
 init();
