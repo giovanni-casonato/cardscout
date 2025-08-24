@@ -18,7 +18,7 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   chrome.storage.local.set({ imageUrl, status: "loading" });
 
   try {
-    const res = await fetch(`${API_BASE}//openai-analyze-price`, {
+    const res = await fetch(`${API_BASE}/openai-analyze-price`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ imageUrl })
