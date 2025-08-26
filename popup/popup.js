@@ -28,26 +28,24 @@ async function init() {
   }
 
   // Get the 'Card' object
-  const cardObj = data.records?.[0]?._objects?.find(obj => obj.name === "Card");
-  const match = cardObj?._identification?.best_match;
-  const priceList = match?.pricing?.list || [];
+  const identity = data?.identity || {};
+  const list = data?.pricing?.list || [];
 
   cardInfo.innerHTML = `
-    <strong>${match?.full_name || 'Unknown Card'}</strong><br/>
-    <em>${match?.set || ''} · ${match?.year || ''}</em>
+    <strong>${identity.canonical_name || 'Unknown Card'}</strong><br/>
+    <em>${identity.set || ''} · ${identity.year || ''}</em><br/>
+    <small>Query: ${data?.pricing?.query || ''}</small>
   `;
 
-  marketResults.innerHTML = priceList.length
-    ? priceList
-        .map(p => `
-          <div class="market">
-            <strong>${p.source}</strong><br/>
-            Price: ${p.price} ${p.currency}<br/>
-            <a href="${p.item_link}" target="_blank">View</a>
-          </div>
-        `)
-        .join('')
-    : '<p>No prices found.</p>';
+  marketResults.innerHTML = list.length
+    ? list.map(p => `
+        <div class="market">
+          <strong>${p.source}</strong> — ${p.title || ''}<br/>
+          Price: $${(p.price ?? 0).toFixed(2)}${p.shipping ? ` + $${p.shipping.toFixed(2)} ship` : ''}<br/>
+          <a href="${p.item_link}" target="_blank" rel="noopener">View</a>
+        </div>
+      `).join("")
+    : "<p>No prices found.</p>";
 }
 
 init();
