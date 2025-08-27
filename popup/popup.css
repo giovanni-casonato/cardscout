@@ -1,5 +1,5 @@
-body {
-  font-family: Arial, sans-serif;
+.card-container {
+  position: relative;
   width: 300px;
   padding: 10px;
 }
@@ -11,7 +11,32 @@ body {
   border-radius: 8px;
 }
 
+
+#card-title {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 4px 6px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
 .market {
   border-top: 1px solid #ddd;
   padding: 6px 0;
+}
+
+#load-more {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #0077ff;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
 }
