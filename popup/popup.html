@@ -7,14 +7,26 @@
 </head>
 <body>
   <div id="app">
-    <div class="card-container">
-      <img id="card-image" />
-      <div id="card-title"></div>
+    <div class="card">
+      <div class="card-media">
+        <img id="card-image" alt="Card preview" />
+        <div id="card-title" class="card-title"></div>
+        <div id="rarity-chip" class="chip" style="display:none;"></div>
+      </div>
+      <div class="meta">
+        <div id="card-info" class="meta-text"></div>
+      </div>
     </div>
-    <div id="card-info"></div>
-    <div id="market-results"></div>
-    <button id="load-more" style="display:none;">Load more</button>
+
+    <div class="hud">
+      <span id="progress-label">Showing 0 of 0</span>
+      <div class="bar"><div id="progress-fill" class="fill"></div></div>
+    </div>
+
+    <div id="market-results" class="grid"></div>
+    <button id="load-more" class="btn" style="display:none;">+5 more deals</button>
   </div>
+
   <script src="popup.js"></script>
 </body>
 </html>

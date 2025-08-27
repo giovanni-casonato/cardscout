@@ -1,42 +1,131 @@
-.card-container {
-  position: relative;
-  width: 300px;
-  padding: 10px;
+:root{
+  --bg:#0b0f19;
+  --panel:#0e1423;
+  --muted:#8ea4d8;
+  --text:#eaf0ff;
+  --line:rgba(255,255,255,.08);
+  --glow1:#7b61ff;
+  --glow2:#33e1ff;
+  --accent:#1be7ff;
+  --success:#78f07b;
 }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size:14px; color:var(--text);
+  background:
+    radial-gradient(900px 300px at -20% -30%, #101833, transparent 55%),
+    linear-gradient(180deg, #0a0f1a, #0b0f19 30%, #0b0f19 100%);
+  border-radius:14px; /* round corners */
+  width: 340px; padding:12px;
+}
+
+/* Card wrapper */
+.card{
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border-radius:14px; /* round corners */
+  overflow:hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Card media */
+.card-media{ position:relative; overflow:hidden; }
 
 #card-image {
   width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  height: 140px;        /* 👈 smaller, consistent height */
+  object-fit: contain;  /* 👈 scales down, no cropping */
+  border-radius: 14px;  /* 👈 rounded corners */
+  display: block;
+  background: #0e1423;  /* 👈 optional: gives a nice dark frame behind transparent edges */
+  filter: saturate(1.05) contrast(1.03);
 }
 
-
-#card-title {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  padding: 4px 6px;
-  font-weight: bold;
-  font-size: 14px;
-  border-radius: 4px;
+.card-title{
+  position:absolute; top:8px; left:8px; right:8px;
+  padding:6px 10px; font-weight:800; letter-spacing:.2px;
+  border-radius:10px;
+  color:#fff;
+  background: linear-gradient(90deg, rgba(10,14,30,.75), rgba(10,14,30,.35));
+  border:1px solid var(--line);
+  text-shadow: 0 0 10px rgba(27,231,255,.6);
 }
 
-.market {
-  border-top: 1px solid #ddd;
-  padding: 6px 0;
+.chip{
+  position:absolute; bottom:8px; left:8px;
+  padding:4px 8px; border-radius:999px;
+  font-size:12px; font-weight:700; color:#0a0f19;
+  background: linear-gradient(135deg, #ffd54a, #ff9f1c);
+  border:1px solid rgba(0,0,0,.25);
+  box-shadow: 0 6px 18px rgba(255,159,28,.35);
 }
 
-#load-more {
-  margin-top: 8px;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 6px;
-  background: #0077ff;
-  color: #fff;
-  cursor: pointer;
-  width: 100%;
+/* Meta */
+.meta{ padding:10px 12px 12px; }
+.meta-text{ color:var(--muted); }
+.meta-text em{ color:#dbe5ff; font-style:normal; }
+
+/* HUD */
+.hud{
+  display:grid; gap:6px; margin:10px 2px 6px;
 }
+.hud span{ color:var(--muted); font-size:12px; }
+.bar{
+  height:8px; border-radius:999px; background:var(--line); overflow:hidden;
+  outline:1px solid var(--line);
+}
+.fill{
+  height:100%;
+  background: linear-gradient(90deg, var(--glow1), var(--glow2));
+  width:0%; transition: width .25s ease;
+}
+
+/* Market grid */
+.grid{ display:grid; gap:8px; }
+.market{
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  border-radius:12px; padding:10px;
+  transition: transform .06s ease, box-shadow .12s ease;
+}
+.market:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.26); }
+
+.row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.src{
+  display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#cbd7ff;
+  padding:3px 8px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.03);
+}
+.src svg{ width:14px; height:14px; opacity:.9 }
+.badges{ display:flex; gap:6px; }
+.badge{
+  padding:2px 6px; border-radius:6px; border:1px solid var(--line);
+  font-size:11px; font-weight:800;
+}
+.badge.gold{ color:#f9d65c; background:rgba(249,214,92,.12); border-color:rgba(249,214,92,.5) }
+.badge.silver{ color:#d9d9d9; background:rgba(217,217,217,.12) }
+.badge.bronze{ color:#f0b47a; background:rgba(240,180,122,.12) }
+.badge.score{ color:#78e8ff; background:rgba(51,225,255,.12) }
+
+.title{ margin-top:4px; font-weight:700; color:#ecf2ff; font-size:12px; }
+.price{ margin-top:4px; font-size:13px; }
+.price strong{ color:#ffffff; }
+.price small{ color:var(--muted); }
+
+/* Button */
+.btn{
+  margin-top:6px; width:100%;
+  padding:10px 12px; border:0; border-radius:12px;
+  background: linear-gradient(90deg, var(--glow1), var(--glow2));
+  color:#081022; font-weight:900; letter-spacing:.2px;
+  box-shadow: 0 10px 28px rgba(51,225,255,.25);
+  cursor:pointer; transition: transform .06s ease, filter .15s ease;
+}
+.btn:hover{ filter:brightness(1.06) }
+.btn:active{ transform: translateY(1px) scale(.995) }
+
+/* Subtle animation on mount */
+.market{ animation: pop .12s ease both }
+@keyframes pop{ from{ transform:translateY(2px); opacity:0 } to{ transform:translateY(0); opacity:1 } }
