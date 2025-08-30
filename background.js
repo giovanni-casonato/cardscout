@@ -3,7 +3,7 @@ const API_BASE = "https://cardscout-backend-production.up.railway.app";
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "omnidex-search",
-    title: "Search this card",
+    title: "Search with OmniDex",
     contexts: ["image"]
   });
 });
