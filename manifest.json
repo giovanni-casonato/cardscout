@@ -1,17 +1,11 @@
 {
   "manifest_version": 3,
   "name": "OmniDex",
-  "version": "1.0",
-  "description": "Right-click on a card image to find its best price on the Web",
-  "permissions": ["contextMenus", "storage", "scripting"],
-  "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_popup": "popup/popup.html"
-  },
-  "icons": {
-    "128": "icons/icon128.png"
-  }
+  "version": "1.0.0",
+  "description": "Right-click a card image to find best prices.",
+  "permissions": ["contextMenus", "storage"],
+  "host_permissions": ["https://cardscout-backend-production.up.railway.app/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup/popup.html" },
+  "icons": { "128": "icons/icon128.png" }
 }
