@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OmniDex",
   "version": "1.0.0",
-  "description": "Right-click a card image to find best prices.",
+  "description": "Image recognition for collectors: right-click a card to know its name and best price.",
   "permissions": ["contextMenus", "storage"],
   "host_permissions": ["https://cardscout-backend-production.up.railway.app/*"],
   "background": { "service_worker": "background.js" },
