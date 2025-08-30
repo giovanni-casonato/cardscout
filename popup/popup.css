@@ -32,11 +32,17 @@ body{
 }
 
 /* Card media */
-.card-media{ position:relative; overflow:hidden; }
+.card-media{
+  position: relative;              /* preserves chip overlay */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;                        /* space between title and image */
+}
+
 
 #card-image {
   width: 100%;
-  height: 140px;        /* 👈 smaller, consistent height */
+  height: 160px;        /* 👈 smaller, consistent height */
   object-fit: contain;  /* 👈 scales down, no cropping */
   border-radius: 14px;  /* 👈 rounded corners */
   display: block;
@@ -44,14 +50,15 @@ body{
   filter: saturate(1.05) contrast(1.03);
 }
 
-.card-title{
-  position:absolute; top:8px; left:8px; right:8px;
-  padding:6px 10px; font-weight:800; letter-spacing:.2px;
-  border-radius:10px;
-  color:#fff;
-  background: linear-gradient(90deg, rgba(10,14,30,.75), rgba(10,14,30,.35));
-  border:1px solid var(--line);
-  text-shadow: 0 0 10px rgba(27,231,255,.6);
+#card-title{
+  order: -1;                       /* moves it before the image without changing HTML */
+  position: static !important;     /* kills prior absolute overlay */
+  margin: 0;                       /* tweak as needed */
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.06);
 }
 
 .chip{
@@ -86,12 +93,23 @@ body{
 /* Market grid */
 .grid{ display:grid; gap:8px; }
 .market{
+  position: relative;
   border:1px solid var(--line);
   background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
   border-radius:12px; padding:10px;
   transition: transform .06s ease, box-shadow .12s ease;
 }
 .market:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.26); }
+.stretched-link{ position: static; }            /* no layout shift */
+.stretched-link::after{
+  content: ""; position: absolute; inset: 0;    /* covers entire card */
+  z-index: 1;                                    /* sits on top to catch clicks */
+  background: transparent;
+}
+.market:has(.stretched-link:focus-visible){
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .src{

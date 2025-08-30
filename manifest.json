@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "CardScout",
-  "version": "0.1",
-  "description": "Right-click a card image to identify and price it across marketplaces.",
+  "name": "OmniDex",
+  "version": "1.0",
+  "description": "Right-click on a card image to find its best price on the Web",
   "permissions": ["contextMenus", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
