@@ -1,12 +1,18 @@
 const API_BASE = "https://cardscout-backend-production.up.railway.app";
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "omnidex-search",
-    title: "Search with OmniDex",
-    contexts: ["image"]
+async function ensureContextMenu() {
+  return new Promise((resolve) => {
+    chrome.contextMenus.removeAll(() => {
+      chrome.contextMenus.create(
+        { id: "omnidex-search", title: "Search with OmniDex", contexts: ["image"] },
+        () => { if (chrome.runtime.lastError) console.warn(chrome.runtime.lastError.message); resolve(); }
+      );
+    });
   });
-});
+}
+chrome.runtime.onInstalled.addListener(ensureContextMenu);
+chrome.runtime.onStartup.addListener(ensureContextMenu);
+ensureContextMenu(); // once when the worker wakes
 
 // Small helper to store state and make sure popup sees it
 async function setState(obj) {

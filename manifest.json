@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "OmniDex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Image recognition for collectors: right-click a card to know its name and best price.",
   "permissions": ["contextMenus", "storage"],
   "host_permissions": ["https://cardscout-backend-production.up.railway.app/*"],
